@@ -17,8 +17,8 @@ const client = new Client({
 app.get('/',function(req,res){
 	//res.send("Hello..!");
 	selectTable(res);
-}).listen(6969);
-console.log('Listening on port 6969');
+}).listen(port);
+console.log('Listening on port' + port);
 
 client.connect(function(err){
 	if(err)	throw err;
