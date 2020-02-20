@@ -4,9 +4,8 @@ var {Client} = require('pg');
 var app = express();
 
 const port = process.env.PORT || 3000;
-const conStr = process.env.DATABASE_URL ||"postgres://kckhzihgigctnf"+":"
-		+"138cfc5a9c1476cb711e8d49649d50f3a313b966266ffe6644475df8c027f7d2@ec2-3-213-192-58.compute-1.amazonaws.com"+":"
-		+"5432/df5lb9h3l32bm9";
+const conStr = process.env.DATABASE_URL;
+//const rawConstr = "postgres://kckhzihgigctnf:138cfc5a9c1476cb711e8d49649d50f3a313b966266ffe6644475df8c027f7d2@ec2-3-213-192-58.compute-1.amazonaws.com:5432/df5lb9h3l32bm9";
 
 const client = new Client({
 	connectionString: conStr,
