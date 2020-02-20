@@ -14,7 +14,6 @@ const client = new Client({
 });
 
 app.get('/',function(req,res){
-	//res.send("Hello..!");
 	selectTable(res);
 }).listen(port);
 console.log('Listening on port' + port);
@@ -26,12 +25,9 @@ client.connect(function(err){
 
 const selectTable = function(res){
 	console.log("Check");
-		let selectQuery = "select * from Users;";
-		//console.log(selectQuery);
-		client.query(selectQuery,function(err,result){
-			if(err)	throw err;
-			//console.log(result.rows);
-			res.send(JSON.stringify(result.rows));
-			//res.end(JSON.stringify(result.rows));
-		});
+	let selectQuery = "select * from Users;";
+	client.query(selectQuery,function(err,result){
+		if(err)	throw err;
+		res.send(JSON.stringify(result.rows));
+	});
 }
