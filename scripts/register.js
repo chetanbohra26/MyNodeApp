@@ -3,9 +3,13 @@ exports.insertTable = function (res, client, mail, name, pass) {
 	console.log("Processing query:");
 	console.log(insertQuery);
 	client.query(insertQuery, function (err, result) {
-		if (err) {
-			res.send('Error');
-			throw err;
+		try {
+			if (err) {
+				res.send('Error');
+				throw err;
+			}			
+		} catch (error) {
+			console.log('Error : ' + error);
 		}
 		res.send('Record inserted');
 	});
