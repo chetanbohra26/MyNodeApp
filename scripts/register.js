@@ -8,9 +8,9 @@ exports.insertTable = function (res, client, mail, name, pass) {
 				res.send('Error');
 				throw err;
 			}			
+			res.send('Record inserted');
 		} catch (error) {
 			console.log('Error : ' + error);
 		}
-		res.send('Record inserted');
 	});
 }

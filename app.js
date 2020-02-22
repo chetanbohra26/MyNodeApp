@@ -7,8 +7,8 @@ var userRegister = require('./scripts/register');
 var app = express();
 
 const port = process.env.PORT || 4200;
-const conStr = process.env.DATABASE_URL;
-//const conStr = 'postgres://kckhzihgigctnf:138cfc5a9c1476cb711e8d49649d50f3a313b966266ffe6644475df8c027f7d2@ec2-3-213-192-58.compute-1.amazonaws.com:5432/df5lb9h3l32bm9';
+//const conStr = process.env.DATABASE_URL;
+const conStr = 'postgres://kckhzihgigctnf:138cfc5a9c1476cb711e8d49649d50f3a313b966266ffe6644475df8c027f7d2@ec2-3-213-192-58.compute-1.amazonaws.com:5432/df5lb9h3l32bm9';
 
 const client = new Client({
 	connectionString: conStr,
@@ -17,12 +17,17 @@ const client = new Client({
 });
 
 client.connect(function (err) {
-	if (err) throw err;
-	console.log('Connected to database');
+	try {
+		if (err) throw err;
+		console.log('Connected to database');
+	} catch (error) {
+		console.log('Error : ' + error);
+	}
 });
 
 app.get('/user', function (req, res) {
-	userSelect.selectTable(res, client);
+	let user = req.query.user;
+	userSelect.selectTable(res, client, user);
 	console.log('Connected user : ' + req.query.id);
 });
 

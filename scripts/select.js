@@ -1,12 +1,20 @@
-exports.selectTable = function (res, client) {
-	let selectQuery = "select * from Users;";
+exports.selectTable = function (res, client, user) {
+	let selectQuery = 'select * from Users';
+	if(user){
+		selectQuery += (' where user_id = ' + user);
+	}
+	selectQuery += ';';
 	console.log(selectQuery);
 	client.query(selectQuery, function (err, result) {
-		if (err) {
-			res.send('Error');
-			throw err;
+		try {
+			if (err) {
+				res.send('Error');
+				throw err;
+			}
+			console.log(result.rows);
+			res.send(JSON.stringify(result.rows));
+		} catch (error) {
+			console.log('Error : ' + error);
 		}
-		console.log(result.rows);
-		res.send(JSON.stringify(result.rows));
 	});
 }
