@@ -1,11 +1,7 @@
 exports.selectTable = function (res, client, user) {
-	let selectQuery = 'select * from Users';
-	if(user){
-		selectQuery += (' where user_id = ' + user);
-	}
-	selectQuery += ';';
-	console.log(selectQuery);
-	client.query(selectQuery, function (err, result) {
+	let selectQuery = 'select * from Users where user_id = $1;';
+	console.log(selectQuery + " [$1 : " + user + "]");
+	client.query(selectQuery, [user], function (err, result) {
 		try {
 			if (err) {
 				res.send('Error');
