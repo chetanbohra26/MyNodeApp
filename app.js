@@ -49,7 +49,7 @@ app.post('/register', function (req, res) {
 	console.log('Received parameter mail : ' + mail + ' and name : ' + name + ' and pass : ' + pass);
 
 	if (!mail || !name || !pass) {
-		res.send('Incomplete data : ' + req.query);
+		res.send('Incomplete data object : ' + JSON.stringify(req.query));
 		return;
 	}
 	userRegister.insertTable(res, client, mail, name, pass);
