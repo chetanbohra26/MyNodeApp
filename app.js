@@ -26,41 +26,42 @@ client.connect(function (err) {
 		if (err) throw err;
 		console.log('Connected to database');
 	} catch (error) {
-		console.log('Error : ' + error);
+		console.log('Error : %s', error);
 	}
 });
 
-app.get('/user', function (req, res) {
-	let user = req.query.user;
-	console.log('Received parameter user : ' + req.query.id);
+app.post('/user', function (req, res) {
+	let user = req.body.user;
+	if (!user) {
+		res.send('Incomplete data');
+		return;
+	}
+	console.log('Received parameter user : %s', user);
 	userSelect.selectTable(res, client, user);
 });
 
-app.get('/login', function (req, res) {
-	let mail = req.query.mail;
-	let pass = req.query.pass;
-	console.log('Received parameter mail : ' + mail + ' and pass : ' + pass);
+app.post('/login', function (req, res) {
+	let mail = req.body.mail;
+	let pass = req.body.pass;
 	if (!mail || !pass) {
 		res.send('Incomplete data');
 		return;
 	}
+	console.log('Received parameter mail : %s and pass of length: %d', mail, pass.length);
 	userLogin.checkLogin(res, client, mail, pass);
 });
 
 app.post('/register', function (req, res) {
-	console.log('Received data : ' + JSON.stringify(req.body));
 	let mail = req.body.mail;
 	let name = req.body.name;
 	let pass = req.body.pass;
-	console.log('Received parameter mail : ' + mail + ' and name : ' + name + ' and pass : ' + pass);
-
 	if (!mail || !name || !pass) {
-		res.send('Incomplete data object : ' + JSON.stringify(req.body));
+		res.send('Incomplete data');
 		return;
 	}
+	console.log('Received parameter mail : %s and name : %s and pass of length : %d', mail, name, pass.length);
 	userRegister.insertTable(res, client, mail, name, pass);
 });
 
 app.listen(port);
-console.log('Listening on port ' + port);
-
+console.log('Listening on port %s', port);
