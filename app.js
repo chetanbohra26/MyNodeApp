@@ -6,7 +6,7 @@ var userRegister = require('./scripts/register');
 
 var app = express();
 
-const port = process.env.PORT || 4200;
+const port = process.env.PORT || 6969;
 
 const conStr = process.env.DATABASE_URL;
 //const conStr = 'postgres://kckhzihgigctnf:138cfc5a9c1476cb711e8d49649d50f3a313b966266ffe6644475df8c027f7d2@ec2-3-213-192-58.compute-1.amazonaws.com:5432/df5lb9h3l32bm9';
@@ -43,7 +43,7 @@ app.get('/login', function (req, res) {
 	userLogin.checkLogin(res, client, mail, pass);
 });
 
-app.get('/register', function (req, res) {
+app.post('/register', function (req, res) {
 	let mail = req.query.mail;
 	let name = req.query.name;
 	let pass = req.query.pass;
