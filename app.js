@@ -1,10 +1,15 @@
 var express = require('express');
 var { Client } = require('pg');
+var bodyParser = require('body-parser')
 var userSelect = require('./scripts/select');
 var userLogin = require('./scripts/login');
 var userRegister = require('./scripts/register');
 
 var app = express();
+
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
 
 const port = process.env.PORT || 6969;
 
@@ -43,13 +48,14 @@ app.get('/login', function (req, res) {
 });
 
 app.post('/register', function (req, res) {
-	let mail = req.query.mail;
-	let name = req.query.name;
-	let pass = req.query.pass;
+	console.log('Received data : ' + JSON.stringify(req.body));
+	let mail = req.body.mail;
+	let name = req.body.name;
+	let pass = req.body.pass;
 	console.log('Received parameter mail : ' + mail + ' and name : ' + name + ' and pass : ' + pass);
 
 	if (!mail || !name || !pass) {
-		res.send('Incomplete data object : ' + JSON.stringify(req.query));
+		res.send('Incomplete data object : ' + JSON.stringify(req.body));
 		return;
 	}
 	userRegister.insertTable(res, client, mail, name, pass);
