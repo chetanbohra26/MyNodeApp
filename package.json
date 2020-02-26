@@ -10,6 +10,7 @@
 	"author": "Chetan Bohra",
 	"license": "ISC",
 	"dependencies": {
+		"argon2-ffi": "^1.1.2",
 		"body-parser": "^1.19.0",
 		"express": "^4.17.1",
 		"pg": "^7.18.1"
